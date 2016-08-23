@@ -1,0 +1,36 @@
+﻿
+@model SystemUser
+@{
+
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @{
+        using (Html.BeginForm("Login", "Home", FormMethod.Post))
+        {
+            Html.AntiForgeryToken();
+            Html.ValidationSummary();
+            <table>
+                <tr>
+                    <td>用户名：</td>
+                    @Html.EditorFor(x => x.UserName)
+                </tr>
+                <tr>
+                    <td>密码：</td>
+                    @Html.EditorFor(x => x.UserPwd)
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="登录" /></td>
+                </tr>
+            </table>
+        }
+    }
+</body>
+</html>

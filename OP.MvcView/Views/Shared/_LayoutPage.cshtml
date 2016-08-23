@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Contents/bootstrap")
+</head>
+<body>
+    <div id="bsDiv" class="container">
+        <input type="button" class="btn btn-danger" value="Larger" id="btnToggle"/>
+        <input type="button" class="btn btn-default" value="Default" id="btnDef" />
+        <button id="btnZidan" class="btn btn-info">让子弹飞起来</button>
+    </div>
+    <div id="a">
+        这是布局页里的内容
+        @RenderBody()
+       
+    </div>
+    <div id="animate1" style="height:30px; background-color:palevioletred; width:200px;">
+        animate展示
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $a = $('div[id=a]');
+            var $defFontSize = $a.css('fontSize');
+            console.assert($defFontSize);
+            $('#btnToggle').click(function (event) {
+                animateFontSiz(120);
+            });
+            $('#btnDef').click(function () {
+                animateFontSiz($defFontSize);
+            });
+            $('#btnZidan').click(function () {
+                console.assert(true, 'aaa', null);
+                var thiswidth = $('#animate1').outerWidth;
+                var parawidth = $('#animate1').parent().outerWidth;
+                $('#animate1').css({ position: 'relative' }).animate({
+                    left: '+=20px'
+                }, 'slow')
+                .animate({
+                    height:'+=20px'
+                },'fast');
+            });
+        });
+        function animateFontSiz(size) {
+            $('#a').animate({ fontSize: parseFloat(size) + 'px' }, 'fast');
+        }
+        
+    </script>
+</body>
+</html>

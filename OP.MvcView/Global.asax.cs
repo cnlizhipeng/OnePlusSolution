@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Optimization;
 
 namespace OP.MvcView
 {
@@ -12,7 +13,9 @@ namespace OP.MvcView
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
         }
     }
 }

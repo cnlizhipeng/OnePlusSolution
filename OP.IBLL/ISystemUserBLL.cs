@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OP.DAL
+namespace OP.IBLL
 {
-    public class Class1
+    public interface ISystemUserBLL<T> where T:class
     {
+        T Login(string usernam, string pwd, string yzm);
     }
 }
