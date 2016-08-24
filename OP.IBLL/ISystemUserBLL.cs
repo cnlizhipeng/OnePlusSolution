@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OP.Model;
 
 namespace OP.IBLL
 {
-    public interface ISystemUserBLL<T> where T:class
+    public interface ISystemUserBLL
     {
-        T Login(string usernam, string pwd, string yzm);
+        SystemUser Login(string usernam, string pwd, string yzm);
     }
 }

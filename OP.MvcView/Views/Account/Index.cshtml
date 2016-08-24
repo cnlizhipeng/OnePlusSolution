@@ -1,0 +1,139 @@
+﻿@model OP.DTO.LoginDTO
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Styles.Render("~/Contents/bootstrap")
+</head>
+<body>
+    @using (Html.BeginForm("Index", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <div class="jumbotron">
+            <h2>用户登录Form提交使用模型</h2>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">@Html.DisplayNameFor(x => x.UName)</span>
+                @Html.TextBoxFor(x => x.UName, new { @class = "form-control" })
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon2">用户密码</span>
+                @Html.PasswordFor(x => x.UPWD, new { @class = "form-control" })
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon5">验&nbsp;证&nbsp;码</span>
+                @Html.TextBoxFor(x => x.ValCode, "", new { @class = "form-control" })
+            </div>
+            <div>
+                <img id="modelGL_StandardCode" style="cursor: pointer;" src="@Url.Action("GetImg", "Account")?t=@DateTime.Now.Ticks" title="看不清，点击换一张" />
+            </div>
+            <div class="btn-group">
+                <input type="submit" class="btn btn-default" value="登录" />
+            </div>
+            <h3>@ViewBag.ErrorMessage</h3>
+        </div>
+    }
+    @*
+        @using (Html.BeginForm("Index", "Account", FormMethod.Post))
+        {
+            <div class="jumbotron">
+                <h2>用户登录Form提交</h2>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">用户名称</span>
+                    @Html.TextBox("username", "李志鹏", new { @class = "form-control", @placeholder = "Username" })
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon2">用户密码</span>
+                    @Html.Password("userpwd", "123", new { @class = "form-control", @placeholder = "Userpwd" })
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon5">验&nbsp;证&nbsp;码</span>
+                    <input type="text" class="form-control" id="YanZhengM"/>
+                </div>
+                <div>
+                    <img id="GL_StandardCode" style="cursor: pointer;" src="@Url.Action("GetImg", "Account")?t=@DateTime.Now.Ticks" title="看不清，点击换一张" />
+                </div>
+                <div class="btn-group">
+                    <input type="submit" class="btn btn-default" value="登录" />
+                </div>
+                <h3>@ViewBag.ErrorMessage</h3>
+            </div>
+        }
+    *@
+    <div class="jumbotron">
+        <h2>用户登录Ajax提交</h2>
+        @Html.AntiForgeryToken()
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon3">用户名称</span>
+            @Html.TextBox("ajusername", "李志鹏", new { @class = "form-control" })
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon4">用户密码</span>
+            @Html.Password("ajuserpwd", "123", new { @class = "form-control" })
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon5">验&nbsp;证&nbsp;码</span>
+            <input type="text" class="form-control" id="jsYanZhengM" />
+        </div>
+        <div>
+            <img id="jsGL_StandardCode" style="cursor: pointer;" src="@Url.Action("GetImg", "Account")?t=@DateTime.Now.Ticks" title="看不清，点击换一张" />
+        </div>
+        <div class="btn-group">
+            <input type="button" class="btn btn-default" value="AJAX登录" id="ajSubmit" />
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ajSubmit').click(function () {
+                var uname = $('#ajusername').val();
+                var upwd = $('#ajuserpwd').val();
+                var valcode = $('#jsYanZhengM').val();
+                if (uname == '')
+                    alert('请填写用户名!')
+                else if (upwd == '')
+                    alert('请填写用户密码!');
+                else if (valcode=='')
+                    alert('验证码!')
+                else {
+                    $('#ajSubmit').attr('disabled', true);
+                    $.ajax({
+                        async: false,
+                        data: { uname: $('#ajusername').val(), upwd: $('#ajuserpwd').val(), valcode: $('#jsYanZhengM').val() },
+                        url: '/Account/Login',
+                        success: function (data) {
+                            if (data == '成功') {
+                                location.href = "/Home/Index";
+                            }
+                            else {
+                                alert(data);
+                            }
+                        },
+                        error: function (data) {
+                            alert(data);
+                        },
+                        complete: function () {
+                            $('#ajSubmit').attr('disabled', false);
+                        }
+                    });
+                }
+
+            });
+            $("#GL_StandardCode,#jsGL_StandardCode,#modelGL_StandardCode").click(function () {
+                var newSrc = "@Url.Action("GetImg", "Account")" + "?t=" + (new Date()).getTime();
+                this.src = newSrc;
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>

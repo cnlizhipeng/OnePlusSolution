@@ -43,6 +43,12 @@
     <Compile Include="ISystemUserBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OP.Model\OP.Model.csproj">
+      <Project>{5c9b95ee-a3bb-4664-bd2a-8749c984ec9a}</Project>
+      <Name>OP.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
