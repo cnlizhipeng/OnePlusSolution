@@ -54,6 +54,10 @@
     <Compile Include="Migrations\201608231155478_InitialCreate.Designer.cs">
       <DependentUpon>201608231155478_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608251322216_AddModules.cs" />
+    <Compile Include="Migrations\201608251322216_AddModules.Designer.cs">
+      <DependentUpon>201608251322216_AddModules.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PlusContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +75,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608231155478_InitialCreate.resx">
       <DependentUpon>201608231155478_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608251322216_AddModules.resx">
+      <DependentUpon>201608251322216_AddModules.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

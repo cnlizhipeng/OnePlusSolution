@@ -50,5 +50,6 @@ namespace OP.DAL
         }
         public DbSet<Employees> Employees { get; set; }
         public DbSet<SystemUser> SystemUser { get; set; }
+        public DbSet<SysModules> SysModules { get; set; }
     }
 }

@@ -17,9 +17,8 @@ namespace OP.MvcView.Controllers
         // GET: Account
         public ActionResult Index()
         {
-            var q = new OP.DTO.LoginDTO() { UName="李志鹏",UPWD="123"};
-
-            return View(q);
+            ViewBag.Title = "系统名称";//可以取配置文件中的内容
+            return View();
         }
         //[HttpPost]
         //public ActionResult Index(FormCollection hct)
@@ -45,7 +44,6 @@ namespace OP.MvcView.Controllers
         //        ViewBag.ErrorMessage = "用户名密码错误，或者没有填写验证码！";
         //        return View();
         //    }
-
         //}
 
         [HttpPost]
@@ -91,7 +89,7 @@ namespace OP.MvcView.Controllers
                     else
                         Session["User"] = finduser;
                     FormsAuthentication.SetAuthCookie(finduser.UserName, false);
-                    return Json("成功", JsonRequestBehavior.AllowGet);
+                    return Json("sucess", JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -118,6 +116,83 @@ namespace OP.MvcView.Controllers
             return File(bytes, @"image/jpeg");
         }
 
+        public ActionResult MyTasks()
+        {
+            return View();
+        }
+
+        public ActionResult MyMessages()
+        {
+            return View();
+        }
+
+        public ActionResult MyNotifications()
+        {
+            return View();
+        }
+
+        public ActionResult MyNormalSet()
+        {
+            return View();
+        }
+
+        public ActionResult MyModules()
+        {
+            IAccountBLL ab = new AccountBLL();
+            var q = ab.GetModules();
+            return View(q);
+        }
+
+        public ActionResult ModuleTree(int parentId)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            IAccountBLL ab = new AccountBLL();
+            var Nodes = ab.GetModules().Where(x => x.PID == parentId).OrderBy(x=>x.ViewOrder);
+            foreach (var pNode in Nodes)
+            {
+                sb.Append("<ul class=\"easyui-tree\">");
+                var sNodes = ab.GetModules().Where(x => x.PID == pNode.ID).OrderBy(x => x.ViewOrder);
+                if (sNodes.Count() > 0)
+                {
+                    sb.Append("<li data-options=\"state: 'closed'\">");
+                    sb.Append(string.Format("<span>{0}</span>", pNode.ModuleName));
+                    sb.Append("<ul>");
+                    foreach (var sNode in sNodes)
+                    {
+                        sb.Append("<li>");
+                        sb.Append(string.Format("<span>{0}</span>",sNode.ModuleName));
+                        sb.Append("</li>");
+                    }
+                    sb.Append("</ul>");
+                    sb.Append("</li>");
+                }
+                else
+                {
+                    sb.Append(string.Format("<li>{0}</li>", pNode.ModuleName));
+                }
+                sb.Append("</ul>");
+            }
+
+            return Content(sb.ToString());
+        }
+
+        public ActionResult CreateUser()
+        {
+            return View();
+        }
+
+        public ActionResult UserIndex()
+        {
+            ViewBag.Title = "系统用户管理";
+            return View();
+        }
+
+        public JsonResult GetUsers()
+        {
+            IAccountBLL ab = new AccountBLL();
+            var q = ab.GetAll();
+            return Json(q, JsonRequestBehavior.AllowGet);
+        }
     }
 
     //2.1随机码和图片流生成

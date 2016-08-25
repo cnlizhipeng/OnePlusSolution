@@ -11,6 +11,5 @@ namespace OP.Model
         public int EmployeeID { get; set; }
         [ForeignKey("EmployeeID")]
         public virtual Employees Employee { get; set; }
-
     }
 }

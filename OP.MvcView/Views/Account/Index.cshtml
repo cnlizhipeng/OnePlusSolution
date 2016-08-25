@@ -1,5 +1,4 @@
-﻿@model OP.DTO.LoginDTO
-@{
+﻿@{
     Layout = null;
 }
 
@@ -8,132 +7,75 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Contents/bootstrap")
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="~/img/favicon.png">
 </head>
 <body>
-    @using (Html.BeginForm("Index", "Account", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
-        <div class="jumbotron">
-            <h2>用户登录Form提交使用模型</h2>
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">@Html.DisplayNameFor(x => x.UName)</span>
-                @Html.TextBoxFor(x => x.UName, new { @class = "form-control" })
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon2">用户密码</span>
-                @Html.PasswordFor(x => x.UPWD, new { @class = "form-control" })
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon5">验&nbsp;证&nbsp;码</span>
-                @Html.TextBoxFor(x => x.ValCode, "", new { @class = "form-control" })
-            </div>
-            <div>
-                <img id="modelGL_StandardCode" style="cursor: pointer;" src="@Url.Action("GetImg", "Account")?t=@DateTime.Now.Ticks" title="看不清，点击换一张" />
-            </div>
-            <div class="btn-group">
-                <input type="submit" class="btn btn-default" value="登录" />
-            </div>
-            <h3>@ViewBag.ErrorMessage</h3>
-        </div>
-    }
-    @*
-        @using (Html.BeginForm("Index", "Account", FormMethod.Post))
-        {
-            <div class="jumbotron">
-                <h2>用户登录Form提交</h2>
-                <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon1">用户名称</span>
-                    @Html.TextBox("username", "李志鹏", new { @class = "form-control", @placeholder = "Username" })
+    <!-- Top content -->
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text">
+                        <h1><strong>系统名称</strong> 登录窗体</h1>
+                        <div class="description">
+                            <p>
+                                其它说明
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon2">用户密码</span>
-                    @Html.Password("userpwd", "123", new { @class = "form-control", @placeholder = "Userpwd" })
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h3>登录系统</h3>
+                                <p>输入你的用户名、密码登录:</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <form role="form" action="" method="post" class="login-form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-username">用户名称</label>
+                                    <input type="text" name="form-username" placeholder="用户名..." class="form-username form-control" id="form-username">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-password">用户密码</label>
+                                    <input type="password" name="form-password" placeholder="密码..." class="form-password form-control" id="form-password">
+                                </div>
+                                <button type="button" class="btn" id="btnLogin">登录</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon5">验&nbsp;证&nbsp;码</span>
-                    <input type="text" class="form-control" id="YanZhengM"/>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 social-login">
+                        <h3>...其它登录选择:</h3>
+                        <div class="social-login-buttons">
+                            <a class="btn btn-link-2" href="#">
+                                <i class="fa fa-facebook"></i> QQ
+                            </a>
+                            <a class="btn btn-link-2" href="#">
+                                <i class="fa fa-twitter"></i> 微信
+                            </a>
+                            <a class="btn btn-link-2" href="#">
+                                <i class="fa fa-google-plus"></i>微博
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <img id="GL_StandardCode" style="cursor: pointer;" src="@Url.Action("GetImg", "Account")?t=@DateTime.Now.Ticks" title="看不清，点击换一张" />
-                </div>
-                <div class="btn-group">
-                    <input type="submit" class="btn btn-default" value="登录" />
-                </div>
-                <h3>@ViewBag.ErrorMessage</h3>
             </div>
-        }
-    *@
-    <div class="jumbotron">
-        <h2>用户登录Ajax提交</h2>
-        @Html.AntiForgeryToken()
-        <div class="input-group">
-            <span class="input-group-addon" id="basic-addon3">用户名称</span>
-            @Html.TextBox("ajusername", "李志鹏", new { @class = "form-control" })
         </div>
-        <div class="input-group">
-            <span class="input-group-addon" id="basic-addon4">用户密码</span>
-            @Html.Password("ajuserpwd", "123", new { @class = "form-control" })
-        </div>
-        <div class="input-group">
-            <span class="input-group-addon" id="basic-addon5">验&nbsp;证&nbsp;码</span>
-            <input type="text" class="form-control" id="jsYanZhengM" />
-        </div>
-        <div>
-            <img id="jsGL_StandardCode" style="cursor: pointer;" src="@Url.Action("GetImg", "Account")?t=@DateTime.Now.Ticks" title="看不清，点击换一张" />
-        </div>
-        <div class="btn-group">
-            <input type="button" class="btn btn-default" value="AJAX登录" id="ajSubmit" />
-        </div>
+
     </div>
-
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#ajSubmit').click(function () {
-                var uname = $('#ajusername').val();
-                var upwd = $('#ajuserpwd').val();
-                var valcode = $('#jsYanZhengM').val();
-                if (uname == '')
-                    alert('请填写用户名!')
-                else if (upwd == '')
-                    alert('请填写用户密码!');
-                else if (valcode=='')
-                    alert('验证码!')
-                else {
-                    $('#ajSubmit').attr('disabled', true);
-                    $.ajax({
-                        async: false,
-                        data: { uname: $('#ajusername').val(), upwd: $('#ajuserpwd').val(), valcode: $('#jsYanZhengM').val() },
-                        url: '/Account/Login',
-                        success: function (data) {
-                            if (data == '成功') {
-                                location.href = "/Home/Index";
-                            }
-                            else {
-                                alert(data);
-                            }
-                        },
-                        error: function (data) {
-                            alert(data);
-                        },
-                        complete: function () {
-                            $('#ajSubmit').attr('disabled', false);
-                        }
-                    });
-                }
-
-            });
-            $("#GL_StandardCode,#jsGL_StandardCode,#modelGL_StandardCode").click(function () {
-                var newSrc = "@Url.Action("GetImg", "Account")" + "?t=" + (new Date()).getTime();
-                this.src = newSrc;
-                return false;
-            });
-        });
-    </script>
+    <script src="~/scripts/scripts.js"></script>
 </body>
 </html>

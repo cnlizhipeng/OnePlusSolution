@@ -7,7 +7,7 @@ using System.Web.Security;
 
 namespace OP.MvcView.Controllers
 {
-    [Authorize]
+
     public class HomeController : Controller
     {
         // GET: Home
@@ -16,6 +16,7 @@ namespace OP.MvcView.Controllers
             ViewBag.UserName = Session["User"] == null ? "" : ((OP.Model.SystemUser)Session["User"]).UserName;
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(string UserName, string UserPwd)
         {

@@ -30,19 +30,23 @@ namespace OP.MvcView
     //                  "~/Content/site.css"));
     //    }
     //}
-    public class BundleConfig 
+    public class BundleConfig
     {
 
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                "~/Scripts/jquery-{version}.js"
+                "~/Scripts/jquery-{version}.js",
+                 "~/Scripts/jquery.backstretch.min.js"
                 ));
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.js"
                 ));
             bundles.Add(new StyleBundle("~/Contents/bootstrap").Include(
-                "~/Content/bootstrap.css"
+                "~/Content/bootstrap.min.css",
+                "~/Content/font-awesome.min.css",
+                "~/Content/form-elements.css",
+                "~/Content/loginstyle.css"
                 ));
         }
     }

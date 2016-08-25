@@ -40,10 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAccountBLL.cs" />
+    <Compile Include="IBaseBLL.cs" />
     <Compile Include="ISystemUserBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OP.DTO\OP.DTO.csproj">
+      <Project>{7d4ecbfd-edb9-416f-b51a-d966d8eb3418}</Project>
+      <Name>OP.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OP.Model\OP.Model.csproj">
       <Project>{5c9b95ee-a3bb-4664-bd2a-8749c984ec9a}</Project>
       <Name>OP.Model</Name>

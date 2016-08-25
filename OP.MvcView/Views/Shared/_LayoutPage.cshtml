@@ -3,52 +3,115 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Contents/bootstrap")
+    <title>我的系统</title>
+    <link rel="icon" type="image/ico" href="http://tattek.com/minimal/~/assets/minimal/images/favicon.ico" />
+    <!-- Bootstrap -->
+    <link href="~/assets/minimal/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/minimal/css/vendor/animate/animate.min.css">
+    <link type="text/css" rel="stylesheet" media="all" href="~/assets/minimal/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+    <link rel="stylesheet" href="~/assets/minimal/js/vendor/videobackground/css/jquery.videobackground.css">
+    <link rel="stylesheet" href="~/assets/minimal/css/vendor/bootstrap-checkbox.css">
+
+    <link rel="stylesheet" href="~/assets/minimal/js/vendor/rickshaw/css/rickshaw.min.css">
+    <link rel="stylesheet" href="~/assets/minimal/js/vendor/morris/css/morris.css">
+    <link rel="stylesheet" href="~/assets/minimal/js/vendor/tabdrop/css/tabdrop.css">
+    <link rel="stylesheet" href="~/assets/minimal/js/vendor/summernote/css/summernote.css">
+    <link rel="stylesheet" href="~/assets/minimal/js/vendor/summernote/css/summernote-bs3.css">
+    <link rel="stylesheet" href="~/assets/minimal/js/vendor/chosen/css/chosen.min.css">
+    <link rel="stylesheet" href="~/assets/minimal/js/vendor/chosen/css/chosen-bootstrap.css">
+
+    <link href="~/assets/minimal/css/minimal.css" rel="stylesheet">
 </head>
-<body>
-    <div id="bsDiv" class="container">
-        <input type="button" class="btn btn-danger" value="Larger" id="btnToggle"/>
-        <input type="button" class="btn btn-default" value="Default" id="btnDef" />
-        <button id="btnZidan" class="btn btn-info">让子弹飞起来</button>
+<body class="bg-2">
+    <!-- Preloader -->
+    <!--<div class="mask"><div id="loader"></div></div>-->
+    <!--/Preloader -->
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+        <!-- Make page fluid -->
+        <div class="row">
+            <!-- Fixed navbar -->
+            <div class="navbar navbar-default navbar-fixed-top navbar-transparent-black mm-fixed-top" role="navigation" id="navbar">
+                <!-- Branding -->
+                <div class="navbar-header col-md-2">
+                    <a class="navbar-brand" href="#">
+                        <strong>基础框架</strong>系统
+                    </a>
+                    <div class="sidebar-collapse">
+                        <a href="#">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Branding end -->
+                <!-- .nav-collapse -->
+                <div class="navbar-collapse">
+                    <!-- Page refresh -->
+                    <ul class="nav navbar-nav refresh">
+                        <li class="divided">
+                            <a href="#" class="page-refresh"><i class="fa fa-refresh"></i></a>
+                        </li>
+                    </ul>
+                    <!-- /Page refresh -->
+                    <!-- Search -->
+                    <div class="search" id="main-search">
+                        <i class="fa fa-search"></i> <input type="text" placeholder="Search...">
+                    </div>
+                    <!-- Search end -->
+                    <!-- Quick Actions -->
+                    <ul class="nav navbar-nav quick-actions">
+                        @* 我的任务 *@
+                        @Html.Action("MyTasks", "Account")
+                        @* 我的消息 *@
+                        @Html.Action("MyMessages", "Account")
+                        @* 我的提醒  *@
+                        @Html.Action("MyNotifications", "Account")
+                        @* 我的一般设置 *@
+                        @Html.Action("MyNormalSet", "Account")
+                        <li>
+                            <a href="#mmenu"><i class="fa fa-comments"></i></a>
+                        </li>
+                    </ul>
+                    <!-- /Quick Actions -->
+                    @Html.Action("MyModules", "Account")
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            @RenderBody()
+        </div>
+
     </div>
-    <div id="a">
-        这是布局页里的内容
-        @RenderBody()
-       
-    </div>
-    <div id="animate1" style="height:30px; background-color:palevioletred; width:200px;">
-        animate展示
-    </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var $a = $('div[id=a]');
-            var $defFontSize = $a.css('fontSize');
-            console.assert($defFontSize);
-            $('#btnToggle').click(function (event) {
-                animateFontSiz(120);
-            });
-            $('#btnDef').click(function () {
-                animateFontSiz($defFontSize);
-            });
-            $('#btnZidan').click(function () {
-                console.assert(true, 'aaa', null);
-                var thiswidth = $('#animate1').outerWidth;
-                var parawidth = $('#animate1').parent().outerWidth;
-                $('#animate1').css({ position: 'relative' }).animate({
-                    left: '+=20px'
-                }, 'slow')
-                .animate({
-                    height:'+=20px'
-                },'fast');
-            });
-        });
-        function animateFontSiz(size) {
-            $('#a').animate({ fontSize: parseFloat(size) + 'px' }, 'fast');
-        }
-        
-    </script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="~/assets/minimal/js/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="~/assets/minimal/js/vendor/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/assets/minimal/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+    <script type="text/javascript" src="~/assets/minimal/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="~/assets/minimal/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+    <script type="text/javascript" src="~/assets/minimal/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+    <script type="text/javascript" src="~/assets/minimal/js/vendor/videobackground/jquery.videobackground.js"></script>
+    <script type="text/javascript" src="~/assets/minimal/js/vendor/blockui/jquery.blockUI.js"></script>
+
+    <script src="~/assets/minimal/js/vendor/flot/jquery.flot.min.js"></script>
+    <script src="~/assets/minimal/js/vendor/flot/jquery.flot.time.min.js"></script>
+    <script src="~/assets/minimal/js/vendor/flot/jquery.flot.selection.min.js"></script>
+    <script src="~/assets/minimal/js/vendor/flot/jquery.flot.animator.min.js"></script>
+    <script src="~/assets/minimal/js/vendor/flot/jquery.flot.orderBars.js"></script>
+    <script src="~/assets/minimal/js/vendor/easypiechart/jquery.easypiechart.min.js"></script>
+
+    <script src="~/assets/minimal/js/vendor/rickshaw/raphael-min.js"></script>
+    <script src="~/assets/minimal/js/vendor/rickshaw/d3.v2.js"></script>
+    <script src="~/assets/minimal/js/vendor/rickshaw/rickshaw.min.js"></script>
+
+    <script src="~/assets/minimal/js/vendor/morris/morris.min.js"></script>
+
+    <script src="~/assets/minimal/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
+
+    <script src="~/assets/minimal/js/vendor/summernote/summernote.min.js"></script>
+
+    <script src="~/assets/minimal/js/vendor/chosen/chosen.jquery.min.js"></script>
+
+    <script src="~/assets/minimal/js/minimal.min.js"></script>
 </body>
 </html>
