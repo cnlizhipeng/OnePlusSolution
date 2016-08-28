@@ -140,7 +140,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\ErrorDefault.html" />
+    <Content Include="Content\generics.css" />
     <Content Include="assets\minimal\css\minimal.css" />
+    <Content Include="Content\style.css" />
     <Content Include="assets\minimal\css\vendor\animate\animate.css" />
     <Content Include="assets\minimal\css\vendor\animate\animate.min.css" />
     <Content Include="assets\minimal\css\vendor\bootstrap-checkbox.css" />
@@ -773,6 +776,20 @@
     <Content Include="Global.asax" />
     <Content Include="img\backgrounds\1%402x.jpg" />
     <Content Include="img\backgrounds\1.jpg" />
+    <Content Include="img\body\blue.jpg" />
+    <Content Include="img\body\chrome.jpg" />
+    <Content Include="img\body\city.jpg" />
+    <Content Include="img\body\cloth.png" />
+    <Content Include="img\body\greenish.jpg" />
+    <Content Include="img\body\kiwi.jpg" />
+    <Content Include="img\body\lights.jpg" />
+    <Content Include="img\body\night.jpg" />
+    <Content Include="img\body\ocean.jpg" />
+    <Content Include="img\body\sunny.jpg" />
+    <Content Include="img\body\sunset.jpg" />
+    <Content Include="img\body\tectile.png" />
+    <Content Include="img\body\violate.jpg" />
+    <Content Include="img\body\yellow.jpg" />
     <Content Include="img\favicon.png" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
@@ -807,13 +824,16 @@
     <Content Include="Scripts\respond.min.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\scripts.js" />
-    <Content Include="Views\Shared\404.html" />
+    <Content Include="Content\Error404.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="ControllerContext\CustomException.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -855,6 +875,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OP.BLL\OP.BLL.csproj">

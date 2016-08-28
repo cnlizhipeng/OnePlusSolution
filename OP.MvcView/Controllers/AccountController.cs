@@ -121,17 +121,17 @@ namespace OP.MvcView.Controllers
             
             return PartialView();
         }
-
+        [ChildActionOnly]
         public ActionResult MyMessages()
         {
             return View();
         }
-
+        [ChildActionOnly]
         public ActionResult MyNotifications()
         {
             return View();
         }
-
+        [ChildActionOnly]
         public ActionResult MyNormalSet()
         {
             return View();
