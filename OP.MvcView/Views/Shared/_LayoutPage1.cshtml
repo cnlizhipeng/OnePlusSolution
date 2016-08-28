@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link rel="icon" type="image/ico" href="http://tattek.com/minimal/~/assets/minimal/images/favicon.ico" />
+    <link rel="icon" type="image/ico" href="~/img/favicon.png" />
     <!-- Bootstrap -->
     <link href="~/assets/minimal/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -24,9 +24,8 @@
     <link href="~/assets/minimal/css/minimal.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/assets/ui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="~/assets/ui/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="~/assets/ui/demo.css">
-    <script type="text/javascript" src="~/assets/ui/jquery.min.js"></script>
-    <script type="text/javascript" src="~/assets/ui/jquery.easyui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+
 </head>
 <body class="bg-2">
     <!-- Preloader -->
@@ -54,7 +53,6 @@
                         </li>
                     </ul>
                     <!-- /Page refresh -->
-                 
                     <!-- Quick Actions -->
                     <ul class="nav navbar-nav quick-actions">
                         @* 我的任务 *@
@@ -78,22 +76,19 @@
                 <div data-options="region:'west',split:true" title="模块列表" style="width:260px;">
                     @Html.Action("MyModules", "Account")
                 </div>
-                <div data-options="region:'center',title:'标题',iconCls:'icon-ok'">
-                    <div id="tt" class="easyui-tabs" fit="true">
-                        <div title="About" style="padding:10px">
+                <div data-options="region:'center',iconCls:'icon-ok'">
+                    <div id="MainTabs" class="easyui-tabs" fit="true">
+                        <div title="我的桌面" style="padding:10px">
                             @RenderBody()
-                        </div>
-                        <div title="My Documents" style="padding:10px">
-                            <ul class="easyui-tree" data-options="url:'tree_data1.json',method:'get',animate:true"></ul>
                         </div>
                         <div title="Help" data-options="iconCls:'icon-help',closable:true" style="padding:10px">
                             This is the help content.
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
-            
+
         </div>
 
     </div>
@@ -101,6 +96,9 @@
     <script src="~/assets/minimal/js/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="~/assets/minimal/js/vendor/bootstrap/bootstrap.min.js"></script>
+    <!--<script type="text/javascript" src="~/assets/ui/jquery.min.js"></script>-->
+    <!--加载easyui-->
+    <script type="text/javascript" src="~/assets/ui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="~/assets/minimal/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
     <script type="text/javascript" src="~/assets/minimal/js/vendor/sparkline/jquery.sparkline.min.js"></script>
     <script type="text/javascript" src="~/assets/minimal/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
@@ -128,5 +126,21 @@
     <script src="~/assets/minimal/js/vendor/chosen/chosen.jquery.min.js"></script>
 
     <script src="~/assets/minimal/js/minimal.min.js"></script>
+    <script type="text/javascript">
+        function AddPage(modulname) {
+            var findPage = $('#MainTabs').tabs('getTab', modulname);
+            if (findPage == null) {
+                $('#MainTabs').tabs('add', {
+                    title: modulname,
+                    content: '<div style="padding:10px">Content' + modulname + '</div>',
+                    closable: true
+                });
+            }
+            else {
+                $('#MainTabs').tabs('select', modulname);
+            }
+            
+        }
+    </script>
 </body>
 </html>

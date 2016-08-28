@@ -7,61 +7,9 @@
                           select findparen;
         foreach (var item in arRootItems)
         {
-    <div title="@item.ModuleName" data-options="href:'@Url.Action("ModuleTree", "Account", new { @parentId = item.ID })'" style="padding:10px">
-    </div>
+            <div title="@item.ModuleName" data-options="href:'@Url.Action("ModuleTree", "Account", new { @parentId = item.ID })'" style="padding:10px">
+            </div>
         }
     }
+
 </div>
-
-@*var arRootItems = from findparen in Model
-                      where findparen.PID == -1
-                      orderby findparen.ViewOrder
-                      select findparen;
-    foreach (var item in arRootItems)
-    {
-        <li class="navigation collapsed" id="navigation_@item.ID">
-            <a href="#" class="sidebar-toggle" data-toggle="#navigation_@item.ID">@item.ModuleName <i class="fa fa-angle-up"></i></a>
-            <ul class="menu">
-
-                    var arFirstItems = from firstItems in Model
-                                       where firstItems.PID == item.ID
-                                       orderby firstItems.ViewOrder
-                                       select firstItems;
-                    foreach (var fitem in arFirstItems)
-                    {
-                        //是否有下级节点
-                        var arSecondItems = from Items in Model
-                                            where Items.PID == fitem.ID
-                                            orderby Items.ViewOrder
-                                            select Items;
-                        if (arSecondItems.Count() != 0)
-                        {
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-list"></i> @fitem.ModuleName <b class="fa fa-plus dropdown-plus"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    @{
-                                        foreach (var sitem in arSecondItems)
-                                        {
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-caret-right"></i> @sitem.ModuleName
-                                                </a>
-                                            </li>
-                                        }
-                                    }
-                                </ul>
-                            </li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-th-large"></i> @fitem.ModuleName
-                                </a>
-                            </li>
-                        }
-                    }
-                }*@
-<!-- Sidebar end -->

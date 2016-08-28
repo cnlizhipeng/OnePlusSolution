@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using OP.BLL;
+using OP.Common;
 using OP.IBLL;
-using OP.BLL;
-using System.Web.Security;
-using System.IO;
-using System.Drawing.Imaging;
+using OP.Model;
+using System;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Security;
 
 namespace OP.MvcView.Controllers
 {
@@ -115,10 +115,11 @@ namespace OP.MvcView.Controllers
                 Session["ValGrap"] = code;
             return File(bytes, @"image/jpeg");
         }
-
-        public ActionResult MyTasks()
+        [ChildActionOnly]
+        public PartialViewResult MyTasks()
         {
-            return View();
+            
+            return PartialView();
         }
 
         public ActionResult MyMessages()
@@ -147,33 +148,64 @@ namespace OP.MvcView.Controllers
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             IAccountBLL ab = new AccountBLL();
-            var Nodes = ab.GetModules().Where(x => x.PID == parentId).OrderBy(x=>x.ViewOrder);
+            var Nodes = ab.GetModules().Where(x => x.PID == parentId).OrderBy(x => x.ViewOrder);
+            TagBuilder tb = new TagBuilder("ul").AddCssClassEx("easyui-tree moduletree");
             foreach (var pNode in Nodes)
             {
-                sb.Append("<ul class=\"easyui-tree\">");
                 var sNodes = ab.GetModules().Where(x => x.PID == pNode.ID).OrderBy(x => x.ViewOrder);
                 if (sNodes.Count() > 0)
                 {
-                    sb.Append("<li data-options=\"state: 'closed'\">");
-                    sb.Append(string.Format("<span>{0}</span>", pNode.ModuleName));
-                    sb.Append("<ul>");
+                    var tbLi = new TagBuilder("li").MergeAttributeEx("data-options", "state: 'closed'").
+                        InnerHtmlEx(new TagBuilder("span") { InnerHtml = pNode.ModuleName });
+                    var tbSonUl = new TagBuilder("ul");
                     foreach (var sNode in sNodes)
                     {
-                        sb.Append("<li>");
-                        sb.Append(string.Format("<span>{0}</span>",sNode.ModuleName));
-                        sb.Append("</li>");
+                        tbSonUl.InnerHtmlEx(
+                            new TagBuilder("li").InnerHtmlEx(
+                                new TagBuilder("span").InnerHtmlEx(
+                                    new TagBuilder("a").MergeAttributeEx("href", "#").MergeAttributeEx("onclick", string.Format("AddPage('{0}')", sNode.ModuleName)).InnerHtmlEx(sNode.ModuleName))
+                                    )
+                            );
+
                     }
-                    sb.Append("</ul>");
-                    sb.Append("</li>");
+
+                    tb.InnerHtmlEx(tbLi.InnerHtmlEx(tbSonUl));
                 }
                 else
                 {
-                    sb.Append(string.Format("<li>{0}</li>", pNode.ModuleName));
+                    tb.InnerHtmlEx(new TagBuilder("li").InnerHtmlEx(
+                                        new TagBuilder("span").InnerHtmlEx(
+                                            new TagBuilder("a").MergeAttributeEx("href", "#").MergeAttributeEx("onclick", string.Format("AddPage('{0}')", pNode.ModuleName)).InnerHtmlEx(pNode.ModuleName))
+                                   ));
                 }
-                sb.Append("</ul>");
-            }
 
-            return Content(sb.ToString());
+            }
+            //sb.Append("<ul class=\"easyui-tree moduletree\">");
+            //foreach (var pNode in Nodes)
+            //{
+            //    var sNodes = ab.GetModules().Where(x => x.PID == pNode.ID).OrderBy(x => x.ViewOrder);
+            //    if (sNodes.Count() > 0)
+            //    {
+            //        sb.Append("<li data-options=\"state: 'closed'\">");
+            //        sb.Append(string.Format("<span>{0}</span>", pNode.ModuleName));
+            //        sb.Append("<ul>");
+            //        foreach (var sNode in sNodes)
+            //        {
+            //            sb.Append("<li>");
+            //            sb.Append(string.Format("<span><a href=\"#\" onclick=\"AddPage('{0}')\">{0}</a></span>", sNode.ModuleName));
+            //            sb.Append("</li>");
+            //        }
+            //        sb.Append("</ul>");
+            //        sb.Append("</li>");
+            //    }
+            //    else
+            //    {
+            //        sb.Append(string.Format("<li><a href=\"#\" onclick=\"AddPage('{0}')\">{0}</a></li>", pNode.ModuleName));
+            //    }
+
+            //}
+            //sb.Append("</ul>");
+            return Content(tb.ToString());
         }
 
         public ActionResult CreateUser()

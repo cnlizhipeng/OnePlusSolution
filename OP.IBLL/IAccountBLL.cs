@@ -12,5 +12,7 @@ namespace OP.IBLL
         IEnumerable<SystemUser> GetAll();
 
         IEnumerable<SysModules> GetModules();
+
+        IEnumerable<SysModules> GetModules(int pid);
     }
 }

@@ -9,20 +9,27 @@ using OP.DAL;
 
 namespace OP.BLL
 {
-    public class AccountBLL : IAccountBLL
+    public class AccountBLL : BaseBLL,IAccountBLL
     {
         public IEnumerable<SystemUser> GetAll()
         {
-            PlusContext pc = new PlusContext();
-            var q = pc.SystemUser.ToList();
+            var q = baseContext.SystemUser.ToList();
             return q;
         }
 
         public IEnumerable<SysModules> GetModules()
         {
-            PlusContext pc = new PlusContext();
-            var q = pc.SysModules.ToList();
+            var q = baseContext.SysModules.ToList();
             return q;
+        }
+
+        public IEnumerable<SysModules> GetModules(int pid)
+        {
+            var Nodes = from q in baseContext.SysModules
+                        where q.PID == pid
+                        select q;
+
+            return Nodes.ToList().Concat(Nodes.ToList().SelectMany(s => GetModules(s.ID)));
         }
     }
 }

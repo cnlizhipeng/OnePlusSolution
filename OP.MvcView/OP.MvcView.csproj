@@ -807,6 +807,7 @@
     <Content Include="Scripts\respond.min.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\scripts.js" />
+    <Content Include="Views\Shared\404.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -859,6 +860,10 @@
     <ProjectReference Include="..\OP.BLL\OP.BLL.csproj">
       <Project>{a2b5e27c-1d26-4e1c-8a82-159d380e06ce}</Project>
       <Name>OP.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OP.Common\OP.Common.csproj">
+      <Project>{f692c4de-bfef-42eb-99b4-c11372f438a7}</Project>
+      <Name>OP.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\OP.DTO\OP.DTO.csproj">
       <Project>{7d4ecbfd-edb9-416f-b51a-d966d8eb3418}</Project>
